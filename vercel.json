@@ -1,0 +1,15 @@
+
+
+  { "version": 2, 
+   "routes": [
+    {
+        "src": "/(.*)",
+        "dest": "/"
+    }
+   ],
+"framework": null,
+	"installCommand": null,
+	"buildCommand": "",
+	"outputDirectory": "public"
+}
+  

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
@@ -6,7 +7,9 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_FILE = path.join(__dirname, 'data.json');
-
+let corsOptions = {
+  origin: [ 'http://localhost:4200', 'http://localhost:3000' ]
+};
 app.use(bodyParser.json());
 
 // Helper function to read data from JSON file
@@ -21,7 +24,7 @@ const writeData = (data) => {
 };
 
 // GET all items
-app.get('/items', (req, res) => {
+app.get('/items',cors(corsOptions), (req, res) => {
   const data = readData();
   res.json(data);
 });
@@ -73,6 +76,7 @@ app.delete('/items/:id', (req, res) => {
     res.status(204).end();
   }
 });
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
